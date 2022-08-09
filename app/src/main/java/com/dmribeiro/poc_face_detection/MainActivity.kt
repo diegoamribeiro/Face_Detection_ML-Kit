@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         outputDirectory = outputDirectory()
 
 
-
         if (allPermissionGranted()) {
             startCamera()
             Toast.makeText(this, "We Have Permission", Toast.LENGTH_SHORT).show()
@@ -65,19 +64,17 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
                 this, Constants.REQUIRED_PERMISSIONS, Constants.REQUEST_CODE_PERMISSIONS
             )
         }
-
-
-
     }
 
 
     private fun checkParamsToTakePhoto(): MutableLiveData<Boolean> {
-        return if (shouldTakePhoto.value == false){
+        return if (shouldTakePhoto.value == false) {
             MutableLiveData(
-            isSmiling.value!!
-                    && rightEyeClosed.value!!
-                    && leftEyeClosed.value!!
-        )}else{
+                isSmiling.value!!
+                        && rightEyeClosed.value!!
+                        && leftEyeClosed.value!!
+            )
+        } else {
             return MutableLiveData(false)
         }
     }
@@ -87,19 +84,19 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
 
         lifecycleScope.launch {
             definitive.observe(this@MainActivity, androidx.lifecycle.Observer {
-                if(it){
+                if (it) {
                     binding.buttonTakePhoto.performClick()
                     Log.d("***click", it.toString())
                 }
-                //binding.buttonTakePhoto.visibility = View.GONE
             })
         }
 
         binding.buttonTakePhoto.setOnClickListener {
             takePhoto()
         }
-    }
 
+
+    }
 
 
     override fun onRequestPermissionsResult(
@@ -133,7 +130,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
                 imageCapture =
                     ImageCapture.Builder().setJpegQuality(50).setTargetResolution(Size(360, 540))
                         .build()
-                imageAnalysis = ImageAnalysis.Builder().build()
+                imageAnalysis = ImageAnalysis.Builder().setTargetResolution(Size(360, 540)).build()
                 imageAnalysis!!.setAnalyzer(
                     ContextCompat.getMainExecutor(this),
                     imageAnalyzer
@@ -171,28 +168,24 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
 
         val outputOption = ImageCapture.OutputFileOptions.Builder(photoFile).build()
 
-        CoroutineScope(Dispatchers.IO).launch {
-            imageCapture.takePicture(outputOption, ContextCompat.getMainExecutor(this@MainActivity),
-                object : ImageCapture.OnImageSavedCallback {
-                    override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                        val savedUri = Uri.fromFile(photoFile)
-                        val msg = "Photo saved"
-                        Toast.makeText(this@MainActivity, "$msg + $savedUri", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    override fun onError(exception: ImageCaptureException) {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Failed to save image",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
+        imageCapture.takePicture(outputOption, ContextCompat.getMainExecutor(this),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    val savedUri = Uri.fromFile(photoFile)
+                    val msg = "Photo saved"
+                    Toast.makeText(this@MainActivity, "$msg + $savedUri", Toast.LENGTH_SHORT)
+                        .show()
                 }
-            )
-        }
 
+                override fun onError(exception: ImageCaptureException) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Failed to save image",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        )
     }
 
     private fun allPermissionGranted() =
@@ -200,35 +193,33 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
             ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
         }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun getResult(values: List<Float>) {
         if (values[0] > 0.5f) {
             binding.tvSmile.text = "Sorrindo"
             isSmiling.value = true
+            binding.checkSmile.isChecked = true
         } else {
             binding.tvSmile.text = "Sério"
         }
 
         if (values[1] > 0.5f) {
             binding.tvRightEye.text = "Olho direito aberto"
-            rightEyeClosed.value = true
         } else {
+            rightEyeClosed.value = true
+            binding.checkRightEye.isChecked = true
             binding.tvRightEye.text = "Olho direito fechado"
         }
 
         if (values[2] > 0.5f) {
             binding.tvLeftEye.text = "Olho esquerdo aberto"
-            leftEyeClosed.value = true
         } else {
+            leftEyeClosed.value = true
+            binding.checkLeftEye.isChecked = true
             binding.tvLeftEye.text = "Olho esquerdo fechado"
         }
 
-        if (isSmiling.value == true && rightEyeClosed.value == true && leftEyeClosed.value == true && definitive.value == false){
-            shouldTakePhoto.value = true
-        }
-
-//        if (checkParamsToTakePhoto().value!!) {
-//            shouldTakePhoto.value = true
-//        }
+        loadSteps()
     }
 
     private fun outputDirectory(): File {
@@ -255,4 +246,49 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         }
         return lensFacing
     }
+
+    private fun loadSteps(){
+        if (isSmiling.value == true && rightEyeClosed.value == true && leftEyeClosed.value == true && definitive.value == false) {
+            shouldTakePhoto.value = true
+            binding.checkOk.isChecked = true
+        }
+
+        if (rightEyeClosed.value == true && leftEyeClosed.value == true) {
+            binding.viewFirstStep.setBackgroundColor(
+                resources.getColor(
+                    R.color.teal_200,
+                    resources.newTheme()
+                )
+            )
+        }
+
+        if (rightEyeClosed.value == true && leftEyeClosed.value == true) {
+            binding.viewFirstStep.setBackgroundColor(
+                resources.getColor(
+                    R.color.teal_200,
+                    resources.newTheme()
+                )
+            )
+        }
+
+        if (rightEyeClosed.value == true && leftEyeClosed.value == true && isSmiling.value == true) {
+            binding.viewSecondStep.setBackgroundColor(
+                resources.getColor(
+                    R.color.teal_200,
+                    resources.newTheme()
+                )
+            )
+        }
+
+        if (shouldTakePhoto.value == true) {
+            binding.viewThirdStep.setBackgroundColor(
+                resources.getColor(
+                    R.color.teal_200,
+                    resources.newTheme()
+                )
+            )
+        }
+    }
+
+
 }

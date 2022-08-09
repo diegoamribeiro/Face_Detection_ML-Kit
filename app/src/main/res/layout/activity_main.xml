@@ -84,6 +84,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLeftEye" />
 
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkRightEye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Piscar olho direito"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonTakePhoto" />
+
+    <View
+        android:id="@+id/viewFirstStep"
+        android:layout_width="4dp"
+        android:layout_height="34dp"
+        app:layout_constraintStart_toStartOf="@id/checkRightEye"
+        app:layout_constraintTop_toBottomOf="@id/checkRightEye"
+        app:layout_constraintBottom_toTopOf="@id/checkLeftEye"
+        android:layout_marginStart="14dp"
+        android:background="@color/grey"
+        />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkLeftEye"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Piscar olho esquerdo"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkRightEye" />
+    <View
+        android:id="@+id/viewSecondStep"
+        android:layout_width="4dp"
+        android:layout_height="34dp"
+        app:layout_constraintStart_toStartOf="@id/checkLeftEye"
+        app:layout_constraintTop_toBottomOf="@id/checkLeftEye"
+        app:layout_constraintBottom_toTopOf="@id/checkSmile"
+        android:layout_marginStart="14dp"
+        android:background="@color/grey"
+        />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkSmile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dar um sorriso"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkLeftEye" />
+
+    <View
+        android:id="@+id/viewThirdStep"
+        android:layout_width="4dp"
+        android:layout_height="34dp"
+        app:layout_constraintStart_toStartOf="@id/checkSmile"
+        app:layout_constraintTop_toBottomOf="@id/checkSmile"
+        app:layout_constraintBottom_toTopOf="@id/checkOk"
+        android:layout_marginStart="14dp"
+        android:background="@color/grey"
+        />
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/checkOk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Concuído"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkSmile" />
+
 
 
 
