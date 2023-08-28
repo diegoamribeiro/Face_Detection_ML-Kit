@@ -1,6 +1,7 @@
 package com.dmribeiro.poc_face_detection
 
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -128,7 +129,9 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
                     }
 
                 imageCapture =
-                    ImageCapture.Builder().setJpegQuality(50).setTargetResolution(Size(360, 540))
+                    ImageCapture.Builder()
+                        .setJpegQuality(100)
+                        .setTargetResolution(Size(360, 540))
                         .build()
                 imageAnalysis = ImageAnalysis.Builder().setTargetResolution(Size(360, 540)).build()
                 imageAnalysis!!.setAnalyzer(
@@ -196,27 +199,27 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
     @RequiresApi(Build.VERSION_CODES.M)
     override fun getResult(values: List<Float>) {
         if (values[0] > 0.5f) {
-            binding.tvSmile.text = "Sorrindo"
+            binding.tvSmile.text = "Smiling"
             isSmiling.value = true
             binding.checkSmile.isChecked = true
         } else {
-            binding.tvSmile.text = "Sério"
+            binding.tvSmile.text = "Serious"
         }
 
         if (values[1] > 0.5f) {
-            binding.tvRightEye.text = "Olho direito aberto"
+            binding.tvRightEye.text = "Right eye open"
         } else {
             rightEyeClosed.value = true
             binding.checkRightEye.isChecked = true
-            binding.tvRightEye.text = "Olho direito fechado"
+            binding.tvRightEye.text = "Blinked right eye"
         }
 
         if (values[2] > 0.5f) {
-            binding.tvLeftEye.text = "Olho esquerdo aberto"
+            binding.tvLeftEye.text = "Left eye open"
         } else {
             leftEyeClosed.value = true
             binding.checkLeftEye.isChecked = true
-            binding.tvLeftEye.text = "Olho esquerdo fechado"
+            binding.tvLeftEye.text = "Blinked left eye"
         }
 
         loadSteps()
@@ -247,6 +250,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         return lensFacing
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private fun loadSteps(){
         if (isSmiling.value == true && rightEyeClosed.value == true && leftEyeClosed.value == true && definitive.value == false) {
             shouldTakePhoto.value = true
@@ -256,7 +260,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         if (rightEyeClosed.value == true && leftEyeClosed.value == true) {
             binding.viewFirstStep.setBackgroundColor(
                 resources.getColor(
-                    R.color.teal_200,
+                    R.color.green,
                     resources.newTheme()
                 )
             )
@@ -265,7 +269,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         if (rightEyeClosed.value == true && leftEyeClosed.value == true) {
             binding.viewFirstStep.setBackgroundColor(
                 resources.getColor(
-                    R.color.teal_200,
+                    R.color.green,
                     resources.newTheme()
                 )
             )
@@ -274,7 +278,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         if (rightEyeClosed.value == true && leftEyeClosed.value == true && isSmiling.value == true) {
             binding.viewSecondStep.setBackgroundColor(
                 resources.getColor(
-                    R.color.teal_200,
+                    R.color.green,
                     resources.newTheme()
                 )
             )
@@ -283,7 +287,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
         if (shouldTakePhoto.value == true) {
             binding.viewThirdStep.setBackgroundColor(
                 resources.getColor(
-                    R.color.teal_200,
+                    R.color.green,
                     resources.newTheme()
                 )
             )

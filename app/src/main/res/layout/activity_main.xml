@@ -10,17 +10,16 @@
 
     <FrameLayout
         android:id="@+id/container"
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.060000002">
+        >
 
         <androidx.camera.view.PreviewView
             android:id="@+id/previewView"
-            android:layout_width="350dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             >
@@ -82,25 +81,30 @@
         android:text="Take Photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/tvLeftEye" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/checkRightEye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Piscar olho direito"
+        android:text="Blink right eye"
+        android:button="@drawable/custom_checkbox"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginStart="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonTakePhoto" />
 
     <View
         android:id="@+id/viewFirstStep"
-        android:layout_width="4dp"
-        android:layout_height="34dp"
+        android:layout_width="5dp"
+        android:layout_height="22dp"
         app:layout_constraintStart_toStartOf="@id/checkRightEye"
         app:layout_constraintTop_toBottomOf="@id/checkRightEye"
         app:layout_constraintBottom_toTopOf="@id/checkLeftEye"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:background="@color/grey"
         />
 
@@ -108,18 +112,22 @@
         android:id="@+id/checkLeftEye"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Piscar olho esquerdo"
+        android:text="Blink left eye"
+        android:button="@drawable/custom_checkbox"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginStart="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkRightEye" />
     <View
         android:id="@+id/viewSecondStep"
-        android:layout_width="4dp"
-        android:layout_height="34dp"
+        android:layout_width="5dp"
+        android:layout_height="22dp"
         app:layout_constraintStart_toStartOf="@id/checkLeftEye"
         app:layout_constraintTop_toBottomOf="@id/checkLeftEye"
         app:layout_constraintBottom_toTopOf="@id/checkSmile"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:background="@color/grey"
         />
 
@@ -127,19 +135,23 @@
         android:id="@+id/checkSmile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Dar um sorriso"
+        android:text="Give a smile"
+        android:button="@drawable/custom_checkbox"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginStart="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkLeftEye" />
 
     <View
         android:id="@+id/viewThirdStep"
-        android:layout_width="4dp"
-        android:layout_height="34dp"
+        android:layout_width="5dp"
+        android:layout_height="22dp"
         app:layout_constraintStart_toStartOf="@id/checkSmile"
         app:layout_constraintTop_toBottomOf="@id/checkSmile"
         app:layout_constraintBottom_toTopOf="@id/checkOk"
-        android:layout_marginStart="14dp"
+        android:layout_marginStart="12dp"
         android:background="@color/grey"
         />
 
@@ -147,7 +159,11 @@
         android:id="@+id/checkOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Concuído"
+        android:text="Done / Take Phone"
+        android:button="@drawable/custom_checkbox"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"
         android:layout_marginStart="25dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkSmile" />

@@ -39,9 +39,9 @@ class FaceDetectAnalyzer(val context: Context, val si: SampleInterface) : ImageA
 
 //                        si.getResult(
 //                            " Faces = ${faces.size}\n " +
-//                                    "Abertura de sorriso = " + "${"%.2f".format(face.smilingProbability)}\n" +
-//                                    " Abertura do olho esquerdo = ${"%.2f".format(face.leftEyeOpenProbability)}\n" +
-//                                    " Abertura do olho direito = ${"%.2f".format(face.rightEyeOpenProbability)}"
+//                                    "Open smile = " + "${"%.2f".format(face.smilingProbability)}\n" +
+//                                    " Left eye opened = ${"%.2f".format(face.leftEyeOpenProbability)}\n" +
+//                                    " Right eye opened = ${"%.2f".format(face.rightEyeOpenProbability)}"
 //                        )
 
 //                        Log.d("***Face", face.smilingProbability.toString())
