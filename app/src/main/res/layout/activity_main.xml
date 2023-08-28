@@ -27,13 +27,12 @@
 
     </FrameLayout>
 
-    <Button
+    <ImageButton
         android:id="@+id/btnChange"
         android:layout_width="68dp"
         android:layout_height="65dp"
         android:layout_gravity="end"
-        android:background="@drawable/cam"
-        android:backgroundTint="@color/teal_200"
+        android:background="@drawable/ic_flip_camera"
         app:layout_constraintBottom_toBottomOf="@+id/container"
         app:layout_constraintEnd_toEndOf="@+id/container"
          />
