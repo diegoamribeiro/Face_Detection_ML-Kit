@@ -176,8 +176,10 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo saved"
+                    binding.tvReal.visibility = View.VISIBLE
                     Toast.makeText(this@MainActivity, "$msg + $savedUri", Toast.LENGTH_SHORT)
                         .show()
+
                 }
 
                 override fun onError(exception: ImageCaptureException) {
@@ -206,7 +208,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
             binding.tvSmile.text = "Serious"
         }
 
-        if (values[1] > 0.5f) {
+        if (values[2] > 0.5f) {
             binding.tvRightEye.text = "Right eye open"
         } else {
             rightEyeClosed.value = true
@@ -214,7 +216,7 @@ class MainActivity : AppCompatActivity(), FaceDetectAnalyzer.SampleInterface {
             binding.tvRightEye.text = "Blinked right eye"
         }
 
-        if (values[2] > 0.5f) {
+        if (values[1] > 0.5f) {
             binding.tvLeftEye.text = "Left eye open"
         } else {
             leftEyeClosed.value = true

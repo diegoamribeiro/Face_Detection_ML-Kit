@@ -8,6 +8,7 @@ import androidx.camera.core.ImageProxy
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.FaceDetection
 import com.google.mlkit.vision.face.FaceDetectorOptions
+import com.google.mlkit.vision.face.FaceDetectorOptions.ContourMode
 
 class FaceDetectAnalyzer(val context: Context, val si: SampleInterface) : ImageAnalysis.Analyzer {
 
@@ -16,6 +17,8 @@ class FaceDetectAnalyzer(val context: Context, val si: SampleInterface) : ImageA
             .setPerformanceMode(FaceDetectorOptions.PERFORMANCE_MODE_ACCURATE)
             .setLandmarkMode(FaceDetectorOptions.LANDMARK_MODE_ALL)
             .setClassificationMode(FaceDetectorOptions.CLASSIFICATION_MODE_ALL)
+            .setContourMode(FaceDetectorOptions.CONTOUR_MODE_ALL)
+            .enableTracking()
             .build()
     )
 
